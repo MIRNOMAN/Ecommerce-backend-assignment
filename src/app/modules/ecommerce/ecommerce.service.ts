@@ -26,8 +26,20 @@ const getSingleProductFromDB = async (id: string) => {
   return result;
 };
 
+//Update Product Information
+
+const updateProductInDB = async (id: string, updateData: any) => {
+  const objectId = new mongoose.Types.ObjectId(id);
+  const result = await Product.findByIdAndUpdate(objectId, updateData, {
+    new: true,
+    runValidators: true,
+  });
+  return result;
+};
+
 export const ProductService = {
   createProductIntoDB,
   getAllProductFromDB,
   getSingleProductFromDB,
+  updateProductInDB,
 };
