@@ -37,9 +37,17 @@ const updateProductInDB = async (id: string, updateData: any) => {
   return result;
 };
 
+// Delete a Product
+
+const deleteProductFromDB = async (id: string) => {
+  const objectId = new mongoose.Types.ObjectId(id);
+  const result = await Product.findByIdAndDelete(objectId);
+  return result;
+};
 export const ProductService = {
   createProductIntoDB,
   getAllProductFromDB,
   getSingleProductFromDB,
   updateProductInDB,
+  deleteProductFromDB,
 };
