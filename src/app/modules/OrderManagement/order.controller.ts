@@ -4,7 +4,7 @@ import { OrderService } from './order.service';
 
 const createOrder = async (req: Request, res: Response) => {
   try {
-    const { order: orderData } = req.body;
+    const orderData = req.body;
 
     const zodparsedata = OrderValidationSchema.parse(orderData);
 

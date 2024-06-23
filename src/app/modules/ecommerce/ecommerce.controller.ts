@@ -5,7 +5,7 @@ import { ProductValidationSchema } from './ecommerce.validation';
 
 const createProduct = async (req: Request, res: Response) => {
   try {
-    const { product: productData } = req.body;
+    const productData = req.body;
 
     const zodparsedata = ProductValidationSchema.parse(productData);
 
@@ -52,6 +52,13 @@ const getAllProducts = async (req: Request, res: Response) => {
 const getSingleProducts = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
+
+    if (!productId) {
+      return res.status(400).json({
+        success: false,
+        message: 'Product ID is required',
+      });
+    }
 
     const result = await ProductService.getSingleProductFromDB(productId);
 

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 import { Product } from '../ecommerce.model';
 import { TProduct } from './ecommerce.interface';
 
@@ -21,8 +21,8 @@ const getAllProductFromDB = async (searchTerm?: string) => {
 // Retrieve a Specific Product by ID
 
 const getSingleProductFromDB = async (id: string) => {
-  const objectId = new mongoose.Types.ObjectId(id);
-  const result = await Product.findById(objectId);
+  const objectId = new Types.ObjectId(id);
+  const result = await Product.findOne({ _id: objectId });
   return result;
 };
 

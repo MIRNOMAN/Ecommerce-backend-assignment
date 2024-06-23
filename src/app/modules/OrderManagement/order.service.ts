@@ -1,5 +1,6 @@
 import { Product } from '../ecommerce.model';
 import Order from '../order.model';
+import { InsufficientQuantityError, NotFoundError } from './errors/CustomError';
 import { TOrder } from './order.interface';
 
 const createOrderIntoDB = async (orderData: TOrder) => {
@@ -16,11 +17,13 @@ const createOrderIntoDB = async (orderData: TOrder) => {
       session,
     );
     if (!product) {
-      throw new Error('Product not found');
+      throw new NotFoundError('Product not found');
     }
 
     if (product.inventory.quantity < orderData.quantity) {
-      throw new Error('Insufficient quantity available in inventory');
+      throw new InsufficientQuantityError(
+        'Insufficient quantity available in inventory',
+      );
     }
 
     product.inventory.quantity -= orderData.quantity;
